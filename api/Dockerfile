@@ -1,10 +1,12 @@
-FROM python:3.10-slim
+FROM python:3.11-slim
+
+WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
     wget \
     curl \
-    unzip \
     gnupg \
+    unzip \
     fonts-liberation \
     libappindicator3-1 \
     libasound2 \
@@ -48,10 +50,11 @@ RUN curl -LO https://dl.google.com/linux/direct/google-chrome-stable_current_amd
 
 RUN echo "Chrome version:" && google-chrome --version
 
-WORKDIR /app
-COPY . .
-
-RUN pip install --upgrade pip
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["python3", "app.py"]
+COPY . .
+
+EXPOSE 5550
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5550"]
