@@ -1,0 +1,78 @@
+<app-spinner [isLoading]="isLoading"></app-spinner>
+
+<main>
+
+  <header class="container-header">
+
+    <nav>
+      <a href="/">Home</a>
+      <a href="https://www.wiseintelligence.com.br/" target="_blank">Sobre</a>
+    </nav>
+
+    <img src="wise-logo.avif" alt="logo-consulta" />
+
+
+  </header>
+
+  <section class="container-consulta">
+
+    <h3>Consulta de Pessoa Física - Multi-Fontes</h3>
+
+    <div class="consultas">
+
+      <div class="inputs-fontes">
+
+        <!-- fields para a consulta -->
+        <div class="inputs">
+          <mat-form-field appearance="outline">
+            <mat-label>CPF</mat-label>
+            <input matInput type="text" placeholder="Ex: 125.468.785-64" #cpfInput>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" placeholder="Ex: João Roberto" #nomeInput>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Data de Nascimento</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="dd/mm/aaaa" #nascimentoInput>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <!-- fontes para a consulta -->
+        <div class="fontes">
+          <h3>Fontes de Consultas</h3>
+          <mat-checkbox [checked]="true">Projudi</mat-checkbox>
+          <mat-checkbox [disabled]="true">Portal Transparência</mat-checkbox>
+        </div>
+
+      </div>
+
+      <button (click)="consultar(cpfInput.value, nomeInput.value, nascimentoInput.value)">Consultar Dados</button>
+      <p class="termo">Ao consultar você concorda em Termos de Uso e Políticas de Privacidade</p>
+
+    </div>
+
+  </section>
+
+  <section class="result">  
+    
+    <div class="result-item"  *ngIf="projudi && projudi.length > 0">
+
+      <header (click)="toggle('projudi')" class="result-header">
+        <p>PROJUDI</p>
+        <span>{{ isExpanded('projudi') ? '▲' : '▼' }}</span>
+      </header>
+
+      <div class="result-content" *ngIf="isExpanded('projudi')">
+        <app-projudi [projudi]="projudi"></app-projudi>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- <router-outlet /> -->

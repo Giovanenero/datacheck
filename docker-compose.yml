@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+
+  api:
+    build: ./api
+    container_name: api
+    restart: unless-stopped
+    ports:
+      - "5550:5550"
+    volumes:
+      - api_data:/app/data 
+
+  interface:
+    build: ./interface
+    container_name: interface
+    restart: unless-stopped
+    ports:
+      - "4223:80"
+    depends_on:
+      - api
+
+volumes:
+  api_data:

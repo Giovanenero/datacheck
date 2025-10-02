@@ -1,0 +1,9 @@
+pymongo==4.14.0
+fastapi==0.116.1
+uvicorn==0.35.0
+sentence-transformers==4.0.2
+torch==2.6.0
+ipykernel==6.29.5
+pillow==11.1.0
+selenium==4.24.0
+beautifulsoup4==4.12.3

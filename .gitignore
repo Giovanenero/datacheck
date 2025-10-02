@@ -1,0 +1,7 @@
+interface/node_modules
+interface/.vscode
+interface/.angular
+
+api/__pycache__
+
+json.txt

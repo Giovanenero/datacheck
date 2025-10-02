@@ -1,0 +1,29 @@
+<div *ngFor="let processo of projudi; let i = index" class="processo-item">
+  <header (click)="toggle(i)" class="processo-header">
+    <p>{{ processo.CLASSE_PROCESSUAL }} - {{ processo.ASSUNTO_PRINCIPAL }}</p>
+    <span>{{ isExpanded(i) ? '▲' : '▼' }}</span>
+  </header>
+
+  <div *ngIf="isExpanded(i)" class="processo-content">
+    <p><strong>Status:</strong> {{ processo.STATUS }}</p>
+    <p><strong>Comarca:</strong> {{ processo.COMARCA }}</p>
+    <p><strong>Juízo:</strong> {{ processo.JUIZO }}</p>
+    <p><strong>Juiz:</strong> {{ processo.JUIZ }}</p>
+
+    <h4>Partes</h4>
+    <div *ngFor="let parte of processo.PARTES">
+      <p><strong>{{ parte.TIPO }}:</strong> {{ parte.NAME }}</p>
+      <ul>
+        <li *ngFor="let advogado of parte.ADVOGADOS">{{ advogado }}</li>
+      </ul>
+    </div>
+
+    <h4>Movimentações</h4>
+    <ul>
+      <li *ngFor="let mov of processo.MOVIMENTACOES">
+        {{ mov.DATA }} - {{ mov.TP_EVENTO }} - {{ mov.MOVIMENTADO }}
+        <div *ngIf="mov.DS_EVENTO">Detalhes: {{ mov.DS_EVENTO }}</div>
+      </li>
+    </ul>
+  </div>
+</div>
