@@ -4,7 +4,7 @@ services:
 
   api:
     build: ./api
-    container_name: api
+    container_name: datacheck-api
     restart: unless-stopped
     ports:
       - "5550:5550"
@@ -13,7 +13,7 @@ services:
 
   interface:
     build: ./interface
-    container_name: interface
+    container_name: datacheck-interface
     restart: unless-stopped
     ports:
       - "4223:80"
